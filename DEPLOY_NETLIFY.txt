@@ -1,0 +1,14 @@
+FAMILY WEATHER STUDIO 2.0
+
+NETLIFY DROP: file FamilyWeather_Studio_NETLIFY_DROP.zip
+= Mo https://app.netlify.com/drop/ > Keo ZIP len > Chon 'Trai nghiem demo ngay'.
+= Chay duoc simulator, bots, UI, 2 ngon ngu, du bao Open-Meteo (co internet).
+= KHONG DONG BO GIUA CAC THIET BI.
+
+NETLIFY ONLINE: file FamilyWeather_Studio_ONLINE_GITHUB.zip
+= Giai nen > Upload noi dung len GitHub repo > Netlify Import project from GitHub > Deploy.
+= Xu ly nhom that, moi mot lan, bot admin, canh bao TEST chia se, scheduled forecast hourly.
+= Test API https://YOUR-SITE.netlify.app/api/v1/health
+= Chua co push khi dong trinh duyet.
+
+Doc README.md cho chi tiet. Khong su dung canh bao gia lap thay canh bao thien tai.

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Family Weather Studio — Theo dõi thời tiết của người thân và giả lập cảnh báo an toàn, không cần email." />
+  <title>Family Weather · Weather together</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/themes.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <svg aria-hidden="true" class="svg-sprite" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.9-9.9 7 7 0 0 1 13.7 1.7A4.3 4.3 0 0 1 19.5 18Z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6ZM9 3v15m6-12v15"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6m1 4a5 5 0 0 1 3 5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22c6-3 8-7 8-12V5l-8-3-8 3v5c0 5 2 9 8 12Z"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.8 1.8 0 0 0 .4 2l-2.4 2.4a1.8 1.8 0 0 0-2-.4l-1 .4v2.1h-3v-2.1l-1-.4a1.8 1.8 0 0 0-2 .4L6 17a1.8 1.8 0 0 0 .4-2l-.4-1H4v-3h2l.4-1A1.8 1.8 0 0 0 6 8l2.4-2.4a1.8 1.8 0 0 0 2 .4l1-.4V3.5h3v2.1l1 .4a1.8 1.8 0 0 0 2-.4L19.8 8a1.8 1.8 0 0 0-.4 2l.4 1H22v3h-2.2l-.4 1Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8h13a3 3 0 1 0-3-3m-10 7h17a3 3 0 1 1-3 3M3 16h10a3 3 0 1 1-3 3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m12 3 10 18H2L12 3Zm0 7v4m0 3h.01"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M5 9a8 8 0 0 1 14-2l1 5M4 12l1 5a8 8 0 0 0 14-2"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="15" rx="4"/><path d="M12 6V2m-5 12h.01m10 0h.01M8 18h8"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15a8 8 0 0 1-11-11 8 8 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v6m0-10h.01"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#map" aria-label="Family Weather home"><span class="brand-mark"><svg><use href="#i-cloud"/></svg></span><span class="brand-copy"><strong>family<span>weather</span></strong><small>CARE, TOGETHER</small></span></a>
+      <div class="sidebar-label" data-i18n="navigation">ĐIỀU HƯỚNG</div>
+      <nav class="navigation" aria-label="Main navigation">
+        <button data-page="map" class="nav-link active"><svg><use href="#i-map"/></svg><span data-i18n="weatherMap">Bản đồ thời tiết</span></button>
+        <button data-page="dashboard" class="nav-link"><svg><use href="#i-sun"/></svg><span data-i18n="overview">Tổng quan</span></button>
+        <button data-page="family" class="nav-link"><svg><use href="#i-users"/></svg><span data-i18n="family">Gia đình</span></button>
+        <button data-page="simulator" class="nav-link"><svg><use href="#i-wind"/></svg><span data-i18n="simulator">Giả lập bão</span><span class="nav-new">LAB</span></button>
+        <button data-page="alerts" class="nav-link"><svg><use href="#i-bell"/></svg><span data-i18n="notifications">Thông báo</span><span class="nav-count" id="nav-unread" hidden>0</span></button>
+        <button data-page="settings" class="nav-link"><svg><use href="#i-settings"/></svg><span data-i18n="settings">Cài đặt</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="protection-card"><div class="protection-icon"><svg><use href="#i-shield"/></svg></div><strong data-i18n="careTogether">An tâm cùng nhau</strong><span data-i18n="careCaption">Theo dõi thời tiết cho những người quan trọng.</span></div>
+        <div class="sidebar-footer">Family Weather <span>v4.1</span></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="topbar-left"><button id="mobile-menu" class="icon-btn only-mobile" aria-label="Menu"><svg><use href="#i-menu"/></svg></button><span class="breadcrumb" id="breadcrumb">Tổng quan</span><span class="crumb-sep">/</span><span class="crumb-active">Family Weather</span></div><div class="topbar-actions"><span id="connection-status" class="connection-tag">● <span data-i18n="demoMode">Demo cục bộ</span></span><label class="lang-wrap"><span class="sr-only">Language</span><select id="language" aria-label="Language"><option value="vi">🇻🇳 VI</option><option value="en">🇬🇧 EN</option></select></label><button class="icon-btn notification-btn" id="top-notify" aria-label="Notifications"><svg><use href="#i-bell"/></svg><i id="notification-dot" hidden></i></button><span class="avatar" id="account-avatar" aria-label="You">M</span></div></header>
+      <div id="main-content" class="content" aria-live="polite"></div>
+      <footer class="main-footer"><span>Family Weather Studio · Open-Meteo</span><span data-i18n="footerDisclaimer">Dữ liệu dự báo chỉ để tham khảo · Mô phỏng không phải bão thật</span></footer>
+    </main>
+  </div>
+  <div id="family-floating-root" class="family-floating-root" hidden></div>
+  <div id="modal-root"></div><div id="toast-root" aria-live="polite" aria-atomic="false"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script type="module" src="assets/app.mjs"></script>
+</body>
+</html>
